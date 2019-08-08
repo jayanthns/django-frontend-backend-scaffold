@@ -31,6 +31,16 @@ Django Rest Framework ---> [Django Rest Framework](https://www.django-rest-frame
 
 `cd <project_root>`
 
+#### Install the requirements
+
+##### Production
+
+`pip install -r requirements/prod-requirements.txt`
+
+##### Development
+
+`pip install -r requirements/dev-requirements.txt`
+
 #### Create migrations
 
 `python manage.py makemigrations`
