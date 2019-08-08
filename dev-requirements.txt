@@ -1,0 +1,9 @@
+autopep8==1.4.4
+Django==2.2
+djangorestframework==3.10.2
+pep8==1.7.1
+pycodestyle==2.5.0
+pydocstyle==4.0.0
+pytz==2019.2
+snowballstemmer==1.9.0
+sqlparse==0.3.0

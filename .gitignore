@@ -1,0 +1,8 @@
+.DS_Store
+*.pyc
+.vscode/*
+.idea/*
+*.sqlite3
+.cache/
+*.DS_Store
+*.sql
