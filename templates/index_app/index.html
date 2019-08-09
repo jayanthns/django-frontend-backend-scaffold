@@ -1,2 +1,7 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
 {% block title %} Index {% endblock %}
+{% block static_files %}
+<script src="{% static 'local/js/index_app/index.js' %}"></script>
+{% endblock %}
