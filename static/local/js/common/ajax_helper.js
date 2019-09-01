@@ -1,6 +1,6 @@
 var base_url = window.location.protocol + "//" + window.location.hostname;
 var ajaxFactory = {
-  ajaxHandler: function(url, method, data, callback) {
+  ajaxHandler: function (url, method, data, callback) {
     if (data != undefined) {
       if (method.toLowerCase() != "get") {
         data = JSON.stringify(data);
@@ -13,14 +13,14 @@ var ajaxFactory = {
       type: method,
       data: data,
       contentType: "application/json",
-      beforeSend: function(xhr, settings) {
+      beforeSend: function (xhr, settings) {
         xhr.setRequestHeader("X-CSRFToken", csrf_token);
         //xhr.setRequestHeader("Authorization", "JWT " + token);
       },
-      success: function(response, status, xhr) {
+      success: function (response, status, xhr) {
         callback(response);
       },
-      error: function(response, status, error) {
+      error: function (response, status, error) {
         if (typeof callback != "undefined" && response) {
           callback(response.responseJSON);
         }
@@ -30,7 +30,7 @@ var ajaxFactory = {
       }
     });
   },
-  ajaxHandlerFile: function(url, method, data, callback, progress_bar_card) {
+  ajaxHandlerFile: function (url, method, data, callback, progress_bar_card) {
     var csrf_token = ajaxFactory.getCookie("csrftoken");
     var ajax_data = {
       url: url,
@@ -38,16 +38,16 @@ var ajaxFactory = {
       data: data,
       contentType: false,
       processData: false,
-      beforeSend: function(xhr, settings) {
+      beforeSend: function (xhr, settings) {
         xhr.setRequestHeader("X-CSRFToken", csrf_token);
       },
-      xhr: function() {
+      xhr: function () {
         var xhr = $.ajaxSettings.xhr();
 
         if (xhr.upload) {
           xhr.upload.addEventListener(
             "progress",
-            function(evt) {
+            function (evt) {
               if (evt.lengthComputable) {
                 var percent = ((evt.loaded * 0.75) / evt.total) * 100;
                 progress_bar_card.find(".progress-bar").width(percent + "%");
@@ -57,7 +57,7 @@ var ajaxFactory = {
                     parseFloat(
                       (progress_bar_card.find(".total_file_size").text() *
                         evt.loaded) /
-                        evt.total
+                      evt.total
                     ).toFixed(1)
                   );
                 if (evt.loaded == evt.total) {
@@ -68,16 +68,16 @@ var ajaxFactory = {
             },
             false
           );
-          xhr.upload.addEventListener("load", function(evt) {});
+          xhr.upload.addEventListener("load", function (evt) { });
         }
         return xhr;
       },
-      success: function(response) {
+      success: function (response) {
         if (typeof callback != "undefined" && response) {
           callback(response);
         }
       },
-      error: function(response) {
+      error: function (response) {
         if (typeof callback != "undefined" && response) {
           callback(response.responseJSON);
         }
@@ -85,7 +85,7 @@ var ajaxFactory = {
     };
     $.ajax(ajax_data);
   },
-  ajaxHandlerFileJWT: function(url, method, data, callback, progress_bar_card) {
+  ajaxHandlerFileJWT: function (url, method, data, callback, progress_bar_card) {
     var token = localStorage.getItem("jwt_token");
     var csrf_token = ajaxFactory.getCookie("csrftoken");
     var ajax_data = {
@@ -94,17 +94,17 @@ var ajaxFactory = {
       data: data,
       contentType: false,
       processData: false,
-      beforeSend: function(xhr, settings) {
+      beforeSend: function (xhr, settings) {
         xhr.setRequestHeader("X-CSRFToken", csrf_token);
         xhr.setRequestHeader("Authorization", "JWT " + token);
       },
-      xhr: function() {
+      xhr: function () {
         var xhr = $.ajaxSettings.xhr();
 
         if (xhr.upload) {
           xhr.upload.addEventListener(
             "progress",
-            function(evt) {
+            function (evt) {
               if (evt.lengthComputable) {
                 var percent = ((evt.loaded * 0.75) / evt.total) * 100;
                 progress_bar_card.find(".progress-bar").width(percent + "%");
@@ -114,7 +114,7 @@ var ajaxFactory = {
                     parseFloat(
                       (progress_bar_card.find(".total_file_size").text() *
                         evt.loaded) /
-                        evt.total
+                      evt.total
                     ).toFixed(1)
                   );
                 if (evt.loaded == evt.total) {
@@ -125,16 +125,16 @@ var ajaxFactory = {
             },
             false
           );
-          xhr.upload.addEventListener("load", function(evt) {});
+          xhr.upload.addEventListener("load", function (evt) { });
         }
         return xhr;
       },
-      success: function(response) {
+      success: function (response) {
         if (typeof callback != "undefined" && response) {
           callback(response);
         }
       },
-      error: function(response) {
+      error: function (response) {
         if (typeof callback != "undefined" && response) {
           callback(response.responseJSON);
         }
@@ -142,7 +142,7 @@ var ajaxFactory = {
     };
     $.ajax(ajax_data);
   },
-  ajaxHandlerJWTImage: function(url, method, data, callback) {
+  ajaxHandlerJWTImage: function (url, method, data, callback) {
     var token = localStorage.getItem("jwt_token");
     var csrf_token = ajaxFactory.getCookie("csrftoken");
 
@@ -152,16 +152,16 @@ var ajaxFactory = {
       data: data,
       contentType: false,
       processData: false,
-      beforeSend: function(xhr, settings) {
+      beforeSend: function (xhr, settings) {
         xhr.setRequestHeader("X-CSRFToken", csrf_token);
         xhr.setRequestHeader("Authorization", "JWT " + token);
       },
-      success: function(response) {
+      success: function (response) {
         if (typeof callback != "undefined" && response) {
           callback(response);
         }
       },
-      error: function(response, status, error) {
+      error: function (response, status, error) {
         if (typeof callback != "undefined" && response) {
           callback(response.responseJSON);
         } else if (response.status == 401) {
@@ -177,7 +177,7 @@ var ajaxFactory = {
     });
   },
 
-  ajaxHandlerJWT: function(url, method, data, callback) {
+  ajaxHandlerJWT: function (url, method, data, callback) {
     var token = localStorage.getItem("jwt_token");
     if (method.toLowerCase() != "get") {
       data = JSON.stringify(data);
@@ -188,14 +188,14 @@ var ajaxFactory = {
       type: method,
       data: data,
       contentType: "application/json",
-      beforeSend: function(xhr, settings) {
+      beforeSend: function (xhr, settings) {
         xhr.setRequestHeader("X-CSRFToken", csrf_token);
         xhr.setRequestHeader("Authorization", "JWT " + token);
       },
-      success: function(response, status, xhr) {
+      success: function (response, status, xhr) {
         callback(response);
       },
-      error: function(response, status, error) {
+      error: function (response, status, error) {
         if (typeof callback != "undefined" && response) {
           callback(response.responseJSON);
         } else if (response.status == 401) {
@@ -211,7 +211,7 @@ var ajaxFactory = {
     });
   },
 
-  getCookie: function(name) {
+  getCookie: function (name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != "") {
       var cookies = document.cookie.split(";");
@@ -226,11 +226,11 @@ var ajaxFactory = {
     }
     return cookieValue;
   },
-  secureHTTPRequestHandler: function(url, method, data, callback, type) {
+  secureHTTPRequestHandler: function (url, method, data, callback, type) {
     var token = localStorage.getItem("jwt_token");
 
     if (token == "" || type == "expired") {
-      ajaxFactory.ajaxHandler(base_url + "/api/token/", "GET", {}, function(
+      ajaxFactory.ajaxHandler(base_url + "/api/token/", "GET", {}, function (
         response
       ) {
         localStorage.setItem("jwt_token", response.token);
@@ -241,10 +241,10 @@ var ajaxFactory = {
     }
   },
 
-  secureHTTPRequestHandlerImage: function(url, method, data, callback, type) {
+  secureHTTPRequestHandlerImage: function (url, method, data, callback, type) {
     var token = localStorage.getItem("jwt_token");
     if (token == "" || type == "expired") {
-      ajaxFactory.ajaxHandler(base_url + "/api/token/", "GET", {}, function(
+      ajaxFactory.ajaxHandler(base_url + "/api/token/", "GET", {}, function (
         response
       ) {
         localStorage.setItem("jwt_token", response.token);

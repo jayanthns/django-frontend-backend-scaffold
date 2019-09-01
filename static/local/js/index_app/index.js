@@ -1,7 +1,7 @@
 const GET_URL = "https://jsonplaceholder.typicode.com/todos/1";
 // const POST_URL = "https://jsonplaceholder.typicode.com/posts";
 
-ajaxFactory.ajaxHandler(GET_URL, "GET", {}, function(response) {
+ajaxFactory.ajaxHandler(GET_URL, "GET", {}, function (response) {
   console.log(response);
 });
 // data = {
